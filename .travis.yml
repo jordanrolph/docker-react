@@ -1,0 +1,13 @@
+sudo: required
+language: generic
+
+services:
+  - docker
+
+# Tag "jordanrolph/docker-react" is just convention - can be any name
+before_install:
+  - docker build -t jordanrolph/docker-react -f Dockerfile.dev .
+
+# "-- --coverage" arg used to exit test runner after successful completion instead of hanging
+script:
+  - docker run -e CI=true jordanrolph/docker-react npm run test -- --coverage
